@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>土豆通讯录</title>
+	<link rel="stylesheet" type="text/css" href="../css/index-style.css">
+	
+  	<script src="../js/jquery-2.2.1.min.js"></script>
+ 	<script type="text/javascript" src="../js/artDialog/sea.js"></script>
+ 	<script type="text/javascript" src="../js/index.js"></script>
+ 	<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+
+<script>
+seajs.use(['../js/artDialog/dialog-plus.js'], function (dialog) {
+	window.dialog = dialog;
+});
+</script>
+<script>
+
+// demo
+
+</script>
+</head>
+<body>
+	<div id='view'>
+		<div id='head'>
+		<!-- 头部-logo -->
+			<div id='head-logo'>
+				<a href="#"><img src="../images/logo.png"/>土豆通讯录</a>
+			</div>
+		</div>
+		<div id='middle'>
+			<div id='middle-chatlist'>
+				<img src="../images/middle/对话1.png">
+				<img src="../images/middle/对话2.png">
+				<img src="../images/middle/对话3.png">
+			</div>
+			<div id='middle-network'>
+				<img src="../images/middle/network.png">
+			</div>
+			<div id='middle-skip'>
+				<div id='middle-skip-iframe'>
+  					<iframe id="test-iframe" src="link.html"></iframe>
+  				</div>
+			</div>
+		</div>
+		<!-- 页脚 -->
+		<div id='footer'>
+			<!-- 页脚-联系方式 -->
+			<div id='footer-contact'>
+				<ol>
+					<li><a href="#"><img src="../images/footer/twitter-logo.png"></a></li>
+					<li><a href="#"><img src="../images/footer/googlePlus-logo.png"></a></li>
+					<li><a href="#"><img src="../images/footer/facebook-logo.png"></a></li>
+					<li><a href="#"><img src="../images/footer/wechat-logo.png"></a></li>
+					<li><a href="#"><img src="../images/footer/weibo-logo.png"></a></li>
+					<li><a href="#"><img src="../images/footer/email-logo.png"></a></li>
+				</ol>
+			</div>
+			<!-- 页脚-版权 -->
+			<div id='footer-curtain'>
+				<div id='footer-curtain-copyright'>
+					Copyright 2016 BadTudou. All rights reserved.				
+				</div>
+			</div>
+		</div>
+	</div>

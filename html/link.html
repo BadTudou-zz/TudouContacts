@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<script src="../js/jquery-2.2.1.min.js"></script>
+	<script src="../js/artDialog/sea.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../css/global.css"> -->
+	<link rel="stylesheet" type="text/css" href="../js/css/ui-dialog.css">
+	<link rel="stylesheet" type="text/css" href="../css/link-style.css">
+	
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+
+// demo
+window.console = window.console || {log:function () {}}
+seajs.use(['jquery'], function ($) {
+
+	$('button[data-event=test]').on('click', function () {
+		top.dialog({
+			id: 'test-dialog',
+			title: 'loading..',
+			url: 'signin.html',
+			align: "bottom",
+			//quickClose: true,
+			onshow: function () {
+				console.log('onshow');
+			},
+			oniframeload: function () {
+				console.log('oniframeload');
+			},
+			onclose: function () {
+				if (this.returnValue) {
+					$('#value').html(this.returnValue);
+				}
+				console.log('onclose');
+			},
+			onremove: function () {
+				console.log('onremove');
+			}
+		}).show(document.getElementById('d'));
+		return false;
+	});
+
+	$('button[data-event=reload]').on('click', function () {
+		location.reload();
+		return false;
+	});
+});
+</script>
+</head>
+<body>
+<div>
+<button id='d'  class="large blue awesome" data-event="test">登陆</button>
+<button class="large red awesome" data-event="test">注册</button>
+</div>
+<div id="value"></div>
+</body>
+</html>

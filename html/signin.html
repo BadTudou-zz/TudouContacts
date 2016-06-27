@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>注册用户</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/signin-style.css">
+	<script type="text/javascript" src="../js/jquery-2.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/signin.js"></script>
+	<script type="text/javascript" src="../js/artDialog/sea.js"></script>
+	  	<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+</head>
+<body>
+	<!-- logo -->
+	<div id="logo">
+		<a href="index.html" title="注册用户"><img src="../images/logo.png"></a>
+		<div id="logo-text">注册用户</div>
+	</div>
+
+	<!-- 用户表单 -->
+	<div id="userForm">
+		<div id="userForm-inputform">
+			<div id="userForm-inputform-tip"></div>
+			<form id="form_user" action="#">
+				<input class="form_user_input" name="name" id="input_name" placeholder="姓名" required/>
+				<input class="form_user_input" type="text" name="phonenumber" id="input_phonenumber" placeholder="手机号码" pattern="[0-9]{11}" maxlength="11" required/>
+				<input class="form_user_input" type="password" name="pwd" id="input_pwd" placeholder="密码" required/>
+				<input class="form_user_input" type="password" name="pwd_again" id="input_againpwd" placeholder="确认密码" required/>
+				<input type="submit" id="button_signin" value="立即注册"/>
+				<input type="checkbox" id="check_Info" value=""><b id="text_rememberLoginInfo">用户协议</b></input>
+				<a href="#" id="a_helpinfo">需要帮助?</a>
+			</form>
+		</div>
+	</div>
+
+	
+</body>
+</html>

@@ -39,9 +39,16 @@
 			(
 				uID INTEGER UNSIGNED  NOT NULL,
 				fID INTEGER UNSIGNED  NOT NULL,
-				nickname VARCHAR(128) NOT NULL,
-				phonenumber CHAR(11)
+				nickname VARCHAR(128),
+				phonenumber CHAR(11),
+				PRIMARY KEY (uID, fID)
 			)';
+			$this->m_resource->executeQuery($sqlcmd);
+
+			$sqlcmd = "ALTER TABLE tb_friends ADD CONSTRAINT fk_friend_uID FOREIGN KEY(uID) REFERENCES tb_users(uID) ON UPDATE CASCADE";
+			$this->m_resource->executeQuery($sqlcmd);
+
+			$sqlcmd = "ALTER TABLE tb_friends ADD CONSTRAINT fk_friend_fID FOREIGN KEY(uID) REFERENCES tb_users(fID) ON UPDATE CASCADE";
 			$this->m_resource->executeQuery($sqlcmd);
 		}
 
@@ -49,15 +56,23 @@
 		{
 			$sqlcmd = 'CREATE TABLE tb_messages
 			(
+				mID INTEGER UNSIGNED 	AUTO_INCREMENT NOT NULL 	PRIMARY KEY, 
 				uID INTEGER UNSIGNED  NOT NULL,
 				fID INTEGER UNSIGNED  NOT NULL,
 				type INTEGER NOT NULL,
-				text VARCHAR(140) NOT NULL
+				text VARCHAR(140) NOT NULL,
+				time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 			)';
+			$this->m_resource->executeQuery($sqlcmd);
+
+			$sqlcmd = "ALTER TABLE tb_messages ADD CONSTRAINT fk_message_uID FOREIGN KEY(uID) REFERENCES tb_users(uID) ON UPDATE CASCADE";
+			$this->m_resource->executeQuery($sqlcmd);
+
+			$sqlcmd = "ALTER TABLE tb_messages ADD CONSTRAINT fk_message_fID FOREIGN KEY(uID) REFERENCES tb_users(fID) ON UPDATE CASCADE";
 			$this->m_resource->executeQuery($sqlcmd);
 		}
 
-		public function initDatabase(string $dbname)
+		public function initDatabase($dbname)
 		{
 			$this->m_resource->createDatabase($dbname);
 			$this->m_resource->selectDatabase($dbname);

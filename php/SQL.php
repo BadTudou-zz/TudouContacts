@@ -14,7 +14,6 @@ class MYSQL
 	protected $m_port;
 	protected $m_user;
 	protected $m_pwd;
-	protected $m_dbname;
 	public $m_resource;
 
 
@@ -24,7 +23,6 @@ class MYSQL
 		$this->m_port = '11869';
 		$this->m_user = 'root';
 		$this->m_pwd  = 'RchD3PvU5TA2UtU4';
-		$this->m_dbname = 'db_contacts';
 	}
 
 	public function __destruct()
@@ -41,7 +39,7 @@ class MYSQL
 	public function connect()
 	{
 		$this->m_resource = mysqli_connect($this->m_host.":".$this->m_port, $this->m_user, $this->m_pwd);
-		mysqli_query($this->m_resource, "set names 'UTF-8'");
+		mysqli_query($this->m_resource, "set names 'UTF8'");
 	}
 
 	/**
@@ -58,9 +56,9 @@ class MYSQL
 	 * @param  string $dbname [数据库名称]
 	 * @return [bool]         [状态：成功:true;失败:false]
 	 */
-	public function selectDatabase(string $dbname)
+	public function selectDatabase($dbname)
 	{
-		return mysqli_select_db($this->m_resource, $this->m_dbname);
+		return mysqli_select_db($this->m_resource, $dbname);
 	}
 	
 	/**
@@ -68,7 +66,7 @@ class MYSQL
 	 * @param  string $dbname [数据库名称]
 	 * @return [bool]         [状态：成功:true;失败:false]
 	 */
-	public function createDatabase(string $dbname)
+	public function createDatabase($dbname)
 	{
 		$sqlcmd = 'CREATE DATABASE IF NOT EXISTS '.$dbname;
 		return $this->executeQuery($sqlcmd);
@@ -79,7 +77,7 @@ class MYSQL
 	 * @param  string $dbname [数据库名称]
 	 * @return [bool]         [状态：成功:true;失败:false]
 	 */
-	public function dropDatabase(string $dbname)
+	public function dropDatabase($dbname)
 	{
 		$sqlcmd = 'DROP DATABASE IF EXISTS '.$dbname;
 		return $this->executeQuery($sqlcmd);
@@ -90,7 +88,7 @@ class MYSQL
 	 * @param  string $sql [SQL语句]
 	 * @return [bool]      [执行状态：true,成功; false,失败]
 	 */
-	public function executeQuery(string $sql)
+	public function executeQuery($sql)
 	{
 		return mysqli_query($this->m_resource, $sql);
 		//return mysqli_error($this->m_resource) == ''?true:false;
