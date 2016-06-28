@@ -2,10 +2,10 @@
 	Copyright © BadTudou, 2016
 	All rights reserved
 
-	Name	:	signin.js
+	Name	:	land.js
 	By		:	BadTudu
 	Date	:	2016年06月18日13:40:05
-	Note	:	用户注册
+	Note	:	用户登陆
 */
 
 function RemoveCheckText(obj)
@@ -55,26 +55,11 @@ function ShowPromptText()
 }
 
 
-function CheckName()
+function CheckIDNumber()
 {
-	$('#input_name').blur(function(event)	
+	$('#input_idnumber').blur(function(event)	
 	{
-		if($(this).val().length != 0)
-		{
-			AddendCheckOkText($(this));
-		}
-		else
-		{
-			AddendCheckErrorText($(this));
-		}
-	});
-}
-
-function CheckPhoneNumber()
-{
-	$('#input_phonenumber').blur(function(event)	
-	{
-		var reg= /\b\d{11}\b/;
+		var reg= /\b\d{1,}\b/;
 		if(reg.test($(this).val()))
 		{
 			AddendCheckOkText($(this));
@@ -106,29 +91,13 @@ function CheckFirstPassword()
 	CheckPassword($('#input_pwd'));
 }
 
-function CheckSecondPassword()
-{
-	$('#input_againpwd').blur(function(event)	
-	{
-		CheckPassword($(this));
-		if($('#input_pwd').val() == $(this).val())
-		{
-			AddendCheckOkText($(this));
-		}
-		else
-		{
-			AddendCheckErrorText($(this));
-			SetTipText('两次的密码不一致');
-		}
-	});
-}
 
-function Signin(request) 
+function Land(request) 
 {
 	$.ajax({
 		url: '../php/web.php',
 		type: 'POST',
-		data: {action: 'signin', arguments: request.join('|')}
+		data: {action: 'land', arguments: request.join('|')}
 	})
 	.done(function(json) 
 	{
@@ -149,7 +118,7 @@ function Signin(request)
 
 function CheckAllInput()
 {
-	$('#button_signin').click(function(event) 
+	$('#button_land').click(function(event) 
 	{
 		event.stopPropagation();
 		var inputState = true;
@@ -164,10 +133,9 @@ function CheckAllInput()
 
 		if (inputState)
 		{
-			var name = $('#input_name').val();
 			var pwd = $('#input_pwd').val();
-			var phonenumber =$('#input_phonenumber').val();
-			Signin([name,pwd, phonenumber]);
+			var idnumber =$('#input_idnumber').val();
+			Land([idnumber,pwd]);
 		}
 		else
 		{
@@ -184,15 +152,7 @@ $(document).ready(function($)
 {
 	
 	ShowPromptText();
-	//CheckEmail();
-	CheckName();
-	//CheckAge();
-	CheckPhoneNumber();
+	CheckIDNumber();
 	CheckFirstPassword();
-	CheckSecondPassword();
 	CheckAllInput();
-
-	/*var dialog = top.dialog.get(window);
-	dialog.close($('#input').val());*/
-	//LoadIframe();
 });

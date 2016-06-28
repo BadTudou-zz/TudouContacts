@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>登陆用户</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/signin-style.css">
+	<script type="text/javascript" src="../js/jquery-2.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/land.js"></script>
+	<script type="text/javascript" src="../js/artDialog/sea.js"></script>
+	<script>
+		seajs.config(
+		{
+  			alias: {"jquery": "jquery-1.10.2.js"}
+  		});
+	</script>
+</head>
+<body>
+	<!-- logo -->
+	<div id="logo">
+		<a href="index.html" title="用户登陆"><img src="../images/logo.png"></a>
+		<div id="logo-text">用户登陆</div>
+	</div>
+
+	<!-- 用户表单 -->
+	<div id="userForm">
+		<div id="userForm-inputform">
+			<div id="userForm-inputform-tip"></div>
+			<form id="form_user" action="#">
+				<input class="form_user_input" type="id" name="idnumber" id="input_idnumber" placeholder="用户ID" pattern="[0-9]{1,}" maxlength="11" required/>
+				<input class="form_user_input" type="password" name="pwd" id="input_pwd" placeholder="密码" required/>
+				<input type="submit" id="button_land" value="立即登陆"/>
+				<a href="#" id="a_helpinfo">需要帮助?</a>
+			</form>
+		</div>
+	</div>
+
+	
+</body>
+</html>

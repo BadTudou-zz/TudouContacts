@@ -11,7 +11,7 @@ body
 {
 	/*w:370  h:390*/
 	width: 200px;
-	height: 470px; */
+	height: 300px; */
 	border: solid 1px;
 	border-color: #CCCCCC;
 	background-color: #F7F7F7;
@@ -21,6 +21,7 @@ div#logo
 {
 	/*w:370 h:100*/
 	height: 100px;
+	margin-left: 90px;
 	/* border: solid 1px; */
 	border-color: black;
 }

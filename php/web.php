@@ -3,7 +3,7 @@
 	require_once('CONTACTS_USER.php');
 	if (isset($_POST['action']))
 	{
-		if ($_POST['action'] == 'login')
+		if ($_POST['action'] == 'land')
 		{
 			$arguments = explode('|', $_POST['arguments']);
 			$userID = $arguments[0];
