@@ -97,18 +97,26 @@ function Land(request)
 	$.ajax({
 		url: '../php/web.php',
 		type: 'POST',
+		dataType: 'JSON',
 		data: {action: 'land', arguments: request.join('|')}
 	})
 	.done(function(json) 
 	{
-		if (json != 0)
+		if (json.stateCode != 0)
+		{
+			SetTipText('用户ID或密码错误');
+			$('#input_pwd').val('');
+		}
+		else
 		{
 			var dialog = top.dialog.get(window);
-			dialog.close(json);
+			dialog.close(1);	
 		}
+		
 	})
-	.fail(function() {
-		console.log("error");
+	.fail(function(json) 
+	{
+		console.log("error"+json);
 	})
 	.always(function() {
 		console.log("complete");

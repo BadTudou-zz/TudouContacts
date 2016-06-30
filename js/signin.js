@@ -128,14 +128,16 @@ function Signin(request)
 	$.ajax({
 		url: '../php/web.php',
 		type: 'POST',
+		dataType: 'JSON',
 		data: {action: 'signin', arguments: request.join('|')}
 	})
 	.done(function(json) 
 	{
-		if (json != 0)
+		if (json.stateCode ==0)
 		{
+			alert('你的ID是'+json.msgText);
 			var dialog = top.dialog.get(window);
-			dialog.close(json);
+			dialog.close(1);
 		}
 	})
 	.fail(function() {

@@ -21,7 +21,11 @@ function LoadIframe(htmlurl, ele)
 			onclose: function () {
 				if (this.returnValue) 
 				{
-					console.log('onclose'+ele+this.returnValue);
+					if(this.returnValue == 1)
+					{
+						window.parent.location.href = "../html/main.html";
+						console.log('dddd');
+					}
 				}
 				
 			},
