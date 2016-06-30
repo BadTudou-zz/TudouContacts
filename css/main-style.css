@@ -46,7 +46,7 @@ div#head
 div#context
 {
 	width: 100%;
-	height: 400px;
+	height: 440px;
 	border: solid 1px;
 	border-color: pink;
 }
@@ -146,7 +146,37 @@ div#context-AD
 	color: white;
 	background-color: #CC3366;
 }
+#msglist
+{
+	margin:0px;
+	padding: 0px;
+}
+#msglist li
+{
+	list-style: none;
+	margin:0px;
+	width: 160px;
+	height: 40px;
+	border: solid 1px;
+	border-color: #000;
+}
 
+a.accept, a.reject
+{
+	color: #FFF;
+	width: 40px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 25px;
+	background-color: #0769CB;
+}
+a.reject
+{
+	margin-left: 20px;
+	background-color: #FF6666;
+}
 div#context-AD-text
 {
 	float: left;
@@ -205,13 +235,16 @@ div#footer-contact>ol>li>a>img
 #contacts-list
 {
 	float: left;
+	height: 414px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 #contacts-list li
 {
 	margin-left: 60px;
 	height: 80px;
-	width: 740px;
+	width: 720px;
 	list-style: none;
 	border: solid 1px;
 	border-color: #FFF;

@@ -70,6 +70,38 @@
 					echo json_encode(($contacts_user->getFriendList()));
 					break;
 
+				case 'addfriend':
+					$arguments = explode('|', $_POST['arguments']);
+					$friendID = $arguments[0];
+					$checkMsg = $arguments[1];
+					$msg = $contacts_user->sendAddFriendMsg($friendID, $checkMsg);
+					if ($msg == 0)
+					{
+						SendRespond(1, '用户不存在，添加失败');
+					}
+					else
+					{
+						SendRespond(0, '请求已发送');
+					}
+					exit();
+
+				case 'acceptfriend':
+					$arguments = explode('|', $_POST['arguments']);
+					$friendID = $arguments[0];
+					if ($contacts_user->acceptAddFriendMsg($friendID, '接收好友申请'))
+					{
+						SendRespond(0, '接收好友请求成功');
+					}
+					else
+					{
+						SendRespond(1, '接收好友请求失败');	
+					}
+					exit();
+				case 'getunreadmsg':
+					echo json_encode($contacts_user->getAllUnreadMsg());
+					exit();
+
+
 				default:
 					# code...
 					break;

@@ -68,7 +68,7 @@
 			$sqlcmd = "ALTER TABLE tb_messages ADD CONSTRAINT fk_message_uID FOREIGN KEY(uID) REFERENCES tb_users(uID) ON UPDATE CASCADE";
 			$this->m_resource->executeQuery($sqlcmd);
 
-			$sqlcmd = "ALTER TABLE tb_messages ADD CONSTRAINT fk_message_fID FOREIGN KEY(uID) REFERENCES tb_users(fID) ON UPDATE CASCADE";
+			$sqlcmd = "ALTER TABLE tb_messages ADD CONSTRAINT fk_message_fID FOREIGN KEY(fID) REFERENCES tb_users(uID) ON UPDATE CASCADE";
 			$this->m_resource->executeQuery($sqlcmd);
 		}
 

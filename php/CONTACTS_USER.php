@@ -112,16 +112,17 @@
 		{
 			$sqlcmd = "INSERT INTO tb_messages (uID, fID, type, text) VALUES (".$this->getID().", $fid, $type , '$text')";
 			$this->m_conn->executeQuery($sqlcmd);
+			return mysqli_insert_id($this->m_conn->m_resource);
 		}
 
 		public function sendAddFriendMsg($fid, $text)
 		{
-			$this->addMessage($fid, 1, $text);
+			return $this->addMessage($fid, 1, $text);
 		}
 
 		public function getAllUnreadMsg()
 		{
-			$sqlcmd = "SELECT * FROM tb_messages WHERE uID = ".$this->getID()." AND type != 0";
+			$sqlcmd = "SELECT * FROM tb_messages WHERE fID = ".$this->getID()." AND type != 0";
 			$queryresult = $this->m_conn->executeQuery($sqlcmd);
 			$arUnreadMsg = array();
 			while ($unreadMsg = mysqli_fetch_array($queryresult)) 
@@ -141,14 +142,24 @@
 		{
 			$sqlcmd = "SELECT mID FROM tb_messages WHERE uID = $fid AND type = 1 AND fID = ".$this->getID();
 			$queryresult = $this->m_conn->executeQuery($sqlcmd);
-			$mID = mysqli_fetch_array($queryresult);
-			if ($mID)
+			try 
 			{
-				$this->addFriend($this->getID(), $fid);
-				$this->addFriend($fid, $this->getID());
-				$this->addMessage($fid, 2, $text);
-				$this->setHasReadMsg($mID['mID']);	
+				$mID = mysqli_fetch_array($queryresult);
+				if ($mID)
+				{
+					$this->addFriend($this->getID(), $fid);
+					$this->addFriend($fid, $this->getID());
+					$this->addMessage($fid, 2, $text);
+					$this->setHasReadMsg($mID['mID']);	
+					return true;
+				}
+				
+			} catch (Exception $e) 
+			{
+				throw new Exception("好友请求列表为空", 1);
 			}
+			return false;
+			
 		}
 
 		public function getFriendList()
@@ -156,10 +167,17 @@
 			$arFriend = array();
 			$sqlcmd = "SELECT uID, nickname, phonenumber FROM tb_users WHERE uID IN (SELECT fID FROM tb_friends WHERE uID = ".$this->getID().")";
 			$queryresult = $this->m_conn->executeQuery($sqlcmd);
-			while ($friend = mysqli_fetch_array($queryresult)) 
+			try 
 			{
-				array_push($arFriend, $friend);
+				while ($friend = mysqli_fetch_array($queryresult)) 
+				{
+					array_push($arFriend, $friend);
+				}
+				
+			} catch (Exception $e) {
+				
 			}
+						
 			return $arFriend;
 		}
 
