@@ -85,10 +85,17 @@
 					}
 					exit();
 
+				case 'delfriend':
+					$arguments = explode('|', $_POST['arguments']);
+					$friendID = $arguments[0];
+					$contacts_user->delfriend($friendID);
+					SendRespond(0, '删除好友成功');
+					exit();
+
 				case 'acceptfriend':
 					$arguments = explode('|', $_POST['arguments']);
 					$friendID = $arguments[0];
-					if ($contacts_user->acceptAddFriendMsg($friendID, '接收好友申请'))
+					if ($contacts_user->acceptAddFriendMsg($friendID, '接收好友申请', true))
 					{
 						SendRespond(0, '接收好友请求成功');
 					}
@@ -97,10 +104,41 @@
 						SendRespond(1, '接收好友请求失败');	
 					}
 					exit();
+
+				case 'rejectfriend':
+					$arguments = explode('|', $_POST['arguments']);
+					$friendID = $arguments[0];
+					if ($contacts_user->acceptAddFriendMsg($friendID, '接收好友申请', false))
+					{
+						SendRespond(0, '已拒绝该好友请求');	
+					}
+					else
+					{
+						SendRespond(1, '未拒绝该好友请求');	
+					}
+					exit();
 				case 'getunreadmsg':
 					echo json_encode($contacts_user->getAllUnreadMsg());
 					exit();
 
+				case 'readmsg':
+					$arguments = explode('|', $_POST['arguments']);
+					$mID = $arguments[0];
+					$contacts_user->setHasReadMsg($mID);
+					SendRespond(0, '已读');
+					exit();
+
+				case 'getinfo':
+					echo json_encode($contacts_user->getInfo());
+					exit();
+
+				case 'setnumber':
+					$arguments = explode('|', $_POST['arguments']);
+					$newPnhoeNumber = $arguments[0];
+					$contacts_user->setNumber($newPnhoeNumber);
+					
+					SendRespond(0,$contacts_user->updateInfo());
+					exit();
 
 				default:
 					# code...

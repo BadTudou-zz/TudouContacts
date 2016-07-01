@@ -41,6 +41,7 @@
 			{
 				$personalInfo = mysqli_fetch_array($queryresult);
 				$this->setID($personalInfo['uID']);
+				//$this->m_nickname = 
 				$this->setName($personalInfo['nickname']);
 				$this->setNumber($personalInfo['phonenumber']);	
 				return $personalInfo;	
@@ -61,7 +62,7 @@
 
 		public function setName($newName)
 		{
-			$this->m_name = $newName;
+			$this->m_nickname = $newName;
 		}
 
 	/*	public function login()
@@ -80,7 +81,16 @@
 		 */
 		public function setNumber($newNumber)
 		{
-			$this->m_number = $newNumber;
+			$this->m_phonenumber = $newNumber;
+		}
+
+		/**
+		 * [获取号码]
+		 * @return [string] [号码]
+		 */
+		public function getNumber()
+		{
+			return $this->m_phonenumber;
 		}
 
 		/*
@@ -99,14 +109,7 @@
 			return $this->m_pwd;
 		}
 
-		/**
-		 * [获取号码]
-		 * @return [string] [号码]
-		 */
-		public function getNumber()
-		{
-			return $this->m_number;
-		}
+		
 
 		public function addMessage($fid, $type, $text)
 		{
@@ -138,7 +141,7 @@
 			$this->m_conn->executeQuery($sqlcmd);
 		}
 
-		public function acceptAddFriendMsg($fid, $text)
+		public function acceptAddFriendMsg($fid, $text, $state)
 		{
 			$sqlcmd = "SELECT mID FROM tb_messages WHERE uID = $fid AND type = 1 AND fID = ".$this->getID();
 			$queryresult = $this->m_conn->executeQuery($sqlcmd);
@@ -147,8 +150,12 @@
 				$mID = mysqli_fetch_array($queryresult);
 				if ($mID)
 				{
-					$this->addFriend($this->getID(), $fid);
-					$this->addFriend($fid, $this->getID());
+					if ($state)
+					{
+						$this->addFriend($this->getID(), $fid);
+						$this->addFriend($fid, $this->getID());	
+					}
+					
 					$this->addMessage($fid, 2, $text);
 					$this->setHasReadMsg($mID['mID']);	
 					return true;
@@ -195,8 +202,20 @@
 
 		public function delFriend($fid)
 		{
-			$sqlcmd = "DELETE FROM tb_friends WHERE uID = $this->getID() AND fID = $fid ";
+			$sqlcmd = "DELETE FROM tb_friends WHERE uID = ".$this->getID()." AND fID = $fid ";
 			$this->m_conn->executeQuery($sqlcmd);
+		}
+
+		public function getInfo()
+		{
+			return array('uID'=>$this->m_id, 'nickname'=>$this->m_nickname, 'phonenumber'=>$this->m_phonenumber);
+		}
+
+		public function updateInfo()
+		{
+			$sqlcmd = 'UPDATE tb_users SET phonenumber = "'.$this->getNumber().'" WHERE uID = '.$this->getID();
+			return $queryresult = $this->m_conn->executeQuery($sqlcmd);
+
 		}
 
 	}
